@@ -1,68 +1,57 @@
 package com.V.VSocial
 
-
-import android.content.Context
-import android.util.Log
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONObject
+import com.google.gson.annotations.SerializedName
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Header
 
 
-
-object Data {
-    interface VolleyCallBack {
-        fun onReqestDone()
+object SocialService {
+    private val BASE_URL = "http://www.vako.ga/api/"
+    lateinit var retrofit: Retrofit
+    init {
+        retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
-    var volleyListener:VolleyCallBack?=null
-    var main_queue:RequestQueue?=null
-    var CurrentUser: JSONObject? =null
-    fun createRequestQueue(context: Context): RequestQueue? {
-        if(main_queue==null){
-            main_queue=Volley.newRequestQueue(context)
-        }
-        volleyListener = context as VolleyCallBack
-        return main_queue
+    fun Api(): JSONPlaceHolderApi {
+        return retrofit.create(JSONPlaceHolderApi::class.java)
     }
-    fun getCurrentUser(context: Context): JSONObject? {
 
-        var data:JSONObject?=null
-        val url = "http://www.vako.ga/api/currentuser/"
-        val req=object :JsonObjectRequest(Request.Method.GET, url, null, object : Response.Listener<JSONObject?> {
-            override fun onResponse(response: JSONObject?) {
-                CurrentUser=response
-                data=response
-                Log.e("",response.toString())
-                volleyListener!!.onReqestDone()
-
-
-            }
-        }, object : Response.ErrorListener {
-            override fun onErrorResponse(error: VolleyError?) {
-                // TODO Auto-generated method stub
-            }
-        }){
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = mutableMapOf<String, String>()
-                headers["Authorization"] = "Basic dGVzdDp2YWRpbTA4MTA="
-                return headers
-            }
-        }
-        main_queue = createRequestQueue(context)
-        main_queue!!.add(req)
-        return data
-
-    }
 }
 
 
-class MyJsonObjectRequest(method:Int, url: String?, jsonRequest: JSONObject?, listener: Response.Listener<JSONObject?>?, errorListener: Response.ErrorListener?):JsonObjectRequest(method, url, jsonRequest, listener, errorListener){
-    override fun getHeaders(): MutableMap<String, String> {
-        val headers = mutableMapOf<String, String>()
-        headers["Authorization"] = "Basic dGVzdDp2YWRpbTA4MTA="
-        return headers
-    }
+interface JSONPlaceHolderApi {
+    @GET("currentuser/")
+    fun getCurrentUser(@Header("Authorization") credentials:String): Call<User>
 }
+
+
+data class User (
+    @SerializedName("id") val id : Int,
+    @SerializedName("chats") val chats : List<String>,
+    @SerializedName("img") val img : Img,
+    @SerializedName("user_i") val user_i : User_i,
+    @SerializedName("username") val username : String,
+    @SerializedName("first_name") val first_name : String,
+    @SerializedName("last_name") val last_name : String,
+    @SerializedName("email") val email : String,
+    @SerializedName("groups") val groups : List<String>,
+    @SerializedName("user_permissions") val user_permissions : List<String>
+)
+data class User_i (
+    @SerializedName("id") val id : Int,
+    @SerializedName("adress") val adress : String,
+    @SerializedName("phone") val phone : String,
+    @SerializedName("AboutMe") val aboutMe : String,
+    @SerializedName("data") val data : String
+)
+data class Img (
+    @SerializedName("id") val id : Int,
+    @SerializedName("photo") val photo : String,
+    @SerializedName("data") val data : String,
+    @SerializedName("user") val user : Int
+)

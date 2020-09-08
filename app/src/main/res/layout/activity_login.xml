@@ -29,16 +29,16 @@
         android:onClick="next"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/mail_f"
+        android:id="@+id/username_f"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Mail"
+        android:hint="Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:startIconDrawable="@drawable/baseline_mail_24">
+        app:startIconDrawable="@drawable/baseline_perm_identity_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -55,9 +55,9 @@
         android:hint="Password"
         app:endIconMode="password_toggle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/mail_f"
-        app:layout_constraintStart_toStartOf="@+id/mail_f"
-        app:layout_constraintTop_toBottomOf="@+id/mail_f"
+        app:layout_constraintEnd_toEndOf="@+id/username_f"
+        app:layout_constraintStart_toStartOf="@+id/username_f"
+        app:layout_constraintTop_toBottomOf="@+id/username_f"
         app:layout_constraintVertical_bias="0.07999998"
         app:startIconDrawable="@drawable/baseline_vpn_key_24">
 
@@ -67,17 +67,5 @@
             android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="171dp"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="99dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
