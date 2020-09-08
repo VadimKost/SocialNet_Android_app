@@ -1,5 +1,7 @@
 package com.V.VSocial
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,6 +17,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (getSharedPreferences("Settings", Context.MODE_PRIVATE).contains("UAC")){
+            startActivity(Intent(this,UserActivity::class.java))
+        }
         setContentView(R.layout.activity_login)
 
     }
@@ -28,7 +33,10 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     val post: User? = response.body()
                     if (response.isSuccessful){
-                        
+                        getSharedPreferences("Settings", Context.MODE_PRIVATE).edit().putString("UAC",Credentials.basic(username,password)).apply()
+                        startActivity(Intent(this@LoginActivity,UserActivity::class.java))
+                    }else{
+                        Toast.makeText(this@LoginActivity, "Something went WRONG", Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<User?>, t: Throwable) {

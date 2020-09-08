@@ -26,7 +26,7 @@ object SocialService {
 
 interface JSONPlaceHolderApi {
     @GET("currentuser/")
-    fun getCurrentUser(@Header("Authorization") credentials:String): Call<User>
+    fun getCurrentUser(@Header("Authorization") credentials: String?): Call<User>
 }
 
 
