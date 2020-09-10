@@ -9,6 +9,6 @@
     <style name="Cut" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">cut</item>
         <item name="cornerSize">0dp</item>
-        <item name="cornerSizeTopLeft">10%</item>
+        <item name="cornerSizeTopLeft">5%</item>
     </style>
 </resources>

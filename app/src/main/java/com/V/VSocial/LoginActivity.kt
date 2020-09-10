@@ -17,30 +17,36 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (getSharedPreferences("Settings", Context.MODE_PRIVATE).contains("UAC")){
-            startActivity(Intent(this,UserActivity::class.java))
+        if (getSharedPreferences("Settings", Context.MODE_PRIVATE).contains("UAC")) {
+            startActivity(Intent(this, UserActivity::class.java))
         }
         setContentView(R.layout.activity_login)
 
     }
 
     fun next(view: View) {
-        val username =username_f.editText?.text.toString()
-        val password =password_f.editText?.text.toString()
+        val username = username_f.editText?.text.toString()
+        val password = password_f.editText?.text.toString()
         SocialService.Api()
-            .getCurrentUser(Credentials.basic(username,password))
+            .getCurrentUser(Credentials.basic(username, password))
             .enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     val post: User? = response.body()
-                    if (response.isSuccessful){
-                        getSharedPreferences("Settings", Context.MODE_PRIVATE).edit().putString("UAC",Credentials.basic(username,password)).apply()
-                        startActivity(Intent(this@LoginActivity,UserActivity::class.java))
-                    }else{
-                        Toast.makeText(this@LoginActivity, "Something went WRONG", Toast.LENGTH_SHORT).show()
+                    if (response.isSuccessful) {
+                        getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
+                            .putString("UAC", Credentials.basic(username, password)).apply()
+                        startActivity(Intent(this@LoginActivity, UserActivity::class.java))
+                    } else {
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Something went WRONG",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
+
                 override fun onFailure(call: Call<User?>, t: Throwable) {
-                    Log.e("","lox")
+                    Log.e("", "lox")
                     t.printStackTrace()
                 }
             })
