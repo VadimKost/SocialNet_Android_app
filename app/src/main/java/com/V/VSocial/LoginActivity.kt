@@ -18,7 +18,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (getSharedPreferences("Settings", Context.MODE_PRIVATE).contains("UAC")) {
-            startActivity(Intent(this, UserActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
         setContentView(R.layout.activity_login)
 
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
                             .putString("UAC", Credentials.basic(username, password)).apply()
-                        startActivity(Intent(this@LoginActivity, UserActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     } else {
                         Toast.makeText(
                             this@LoginActivity,
