@@ -56,6 +56,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="14sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -148,10 +149,10 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
                     <TextView
-                        android:id="@+id/textView26"
+                        android:id="@+id/birthday_f"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
+                        android:layout_marginStart="16dp"
                         android:text="TextView"
                         app:layout_constraintBottom_toBottomOf="@+id/textView25"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -162,28 +163,34 @@
                         android:id="@+id/textView27"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="48dp"
                         android:text="Address"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/textView25"
-                        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                        app:layout_constraintBottom_toBottomOf="@+id/birthday_f"
+                        app:layout_constraintStart_toEndOf="@+id/birthday_f" />
 
                     <TextView
                         android:id="@+id/address_f"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
                         android:text="TextView"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView27"
-                        app:layout_constraintStart_toStartOf="@+id/textView26" />
+                        app:layout_constraintBottom_toBottomOf="@+id/gender_f"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/textView27"
+                        app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
                     <ScrollView
                         android:id="@+id/scrollView2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView31"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView31">
 
                         <TextView
@@ -197,13 +204,14 @@
                         android:id="@+id/textView31"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Short about Me"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:text="Short about me"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/textView27"
-                        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                     <TextView
                         android:id="@+id/textView33"
@@ -228,6 +236,24 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Gender"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/textView25"
+                        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                    <TextView
+                        android:id="@+id/gender_f"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView"
+                        app:layout_constraintStart_toStartOf="@+id/birthday_f" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

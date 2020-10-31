@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">VSocial</string>
+    <string-array name="gender">
+        <item>Man</item>
+        <item>Woman</item>
+        <item>Other</item>
+    </string-array>
 </resources>

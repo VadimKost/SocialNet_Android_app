@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity() {
     fun next(view: View) {
         val username = username_f.editText?.text.toString()
         val password = password_f.editText?.text.toString()
-        SocialService.Api()
+        SocialNetService.Api()
             .getCurrentUser(Credentials.basic(username, password))
             .enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {

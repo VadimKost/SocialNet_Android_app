@@ -26,8 +26,29 @@ class MainUserFragment : Fragment() {
     ): View? {
         val v =inflater.inflate(R.layout.fragment_main_user, container, false)
         v.rv.layoutManager=LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        v.rv.adapter= LinksAdapter(Links.data())
-        SocialService.Api()
+
+        SocialNetService.Api().getContactAndLinks(context?.getSharedPreferences("Settings", Context.MODE_PRIVATE)?.getString("UAC","")).enqueue(
+            object:Callback<List<Contact_and_links>>{
+                override fun onResponse(
+                    call: Call<List<Contact_and_links>>,
+                    response: Response<List<Contact_and_links>>
+                ) {
+                    if(response.isSuccessful){
+                            v.rv.adapter= LinksAdapter(response.body()!!)
+                            print(v.rv.adapter)
+
+                    }else{
+                        Toast.makeText(context, "Something went WRONGs", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Contact_and_links>>, t: Throwable) {
+                    Log.e("","lox")
+                    t.printStackTrace()
+                }
+            }
+        )
+        SocialNetService.Api()
             .getCurrentUser(context?.getSharedPreferences("Settings", Context.MODE_PRIVATE)?.getString("UAC",""))
             .enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -36,11 +57,13 @@ class MainUserFragment : Fragment() {
                         if (user != null) {
                             Toast.makeText(context, "Loaded", Toast.LENGTH_SHORT).show()
                             v.username_f.text=user.username
-                            v.address_f.text=user.user_i.adress
-                            v.about_f.text=user.user_i.aboutMe
+                            v.birthday_f.text=user.user_profile.data
+                            v.gender_f.text= context?.resources?.getStringArray(R.array.gender)!![user.user_profile.gender-1]
+                            v.address_f.text=user.user_profile.adress
+                            v.about_f.text=user.user_profile.aboutMe
                             val mPicasso = Picasso.with(context)
                             mPicasso.setIndicatorsEnabled(true)
-                            mPicasso.load(user.img.photo).centerCrop().fit().into(v.image)
+                            mPicasso.load(user.user_profile.photo).centerCrop().fit().into(v.image)
                         }
                     }
                     else if (response.code() == 401){

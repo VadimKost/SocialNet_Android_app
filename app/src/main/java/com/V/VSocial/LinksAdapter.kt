@@ -9,12 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class LinksAdapter(var links:MutableList<Links>): RecyclerView.Adapter<LinksAdapter.LinkHolder>() {
+class LinksAdapter(var links:List<Contact_and_links>): RecyclerView.Adapter<LinksAdapter.LinkHolder>() {
     inner class LinkHolder(cardView: CardView): RecyclerView.ViewHolder(cardView) {
         var text_v =cardView.findViewById(R.id.name) as TextView
         var button_v =cardView.findViewById(R.id.button) as FloatingActionButton
         fun bind(position: Int){
-            text_v.text=links[position].describing
+            text_v.text=links[position].title
             button_v.setImageResource(R.drawable.baseline_link_24)
         }
 
@@ -34,31 +34,5 @@ class LinksAdapter(var links:MutableList<Links>): RecyclerView.Adapter<LinksAdap
         holder.bind(position)
     }
 }
-class Links (
-    val body:String,
-    val describing:String
-){
-    companion object{
-        fun data(): MutableList<Links> {
-            var lin= mutableListOf(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            lin.add(Links("https://github.com/VadimKost","Git"))
-            return lin
-    }}
 
-}
 
