@@ -2,6 +2,7 @@ package com.V.VSocial
 
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,25 +15,31 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar?.title =null
 
+        navigationView.selectedItemId=R.id.user
+        supportFragmentManager.beginTransaction().replace(R.id.container, MainUserFragment()).commit()
 
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.q -> {
+                    return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.user-> {
                         loadFragment(MainUserFragment())
+                    return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.e-> {
+                    return@setOnNavigationItemSelectedListener true
                 }
 
             }
-            true
+            false
 
         }
-        navigationView.selectedItemId=R.id.user
+
 
     }
 
@@ -42,6 +49,10 @@ class MainActivity : AppCompatActivity(){
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    fun vvv(view: View) {
+        removeUserCredentials(this)
     }
 
 
