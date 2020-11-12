@@ -26,7 +26,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/baseline_perm_identity_24">
+            app:startIconDrawable="@drawable/baseline_perm_identity_24"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -63,7 +64,8 @@
             app:layout_constraintEnd_toEndOf="@+id/username_f"
             app:layout_constraintStart_toStartOf="@+id/username_f"
             app:layout_constraintTop_toBottomOf="@+id/username_f"
-            app:startIconDrawable="@drawable/baseline_vpn_key_24">
+            app:startIconDrawable="@drawable/baseline_vpn_key_24"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -83,7 +85,8 @@
             app:layout_constraintEnd_toEndOf="@+id/password_f"
             app:layout_constraintStart_toStartOf="@+id/password_f"
             app:layout_constraintTop_toBottomOf="@+id/password_f"
-            app:startIconDrawable="@drawable/baseline_vpn_key_24">
+            app:startIconDrawable="@drawable/baseline_mail_24"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -97,7 +100,7 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +116,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/baseline_perm_identity_24">
+            app:startIconDrawable="@drawable/baseline_perm_identity_24"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -132,7 +136,8 @@
             app:layout_constraintEnd_toEndOf="@+id/address_f"
             app:layout_constraintStart_toStartOf="@+id/address_f"
             app:layout_constraintTop_toBottomOf="@+id/address_f"
-            app:startIconDrawable="@drawable/baseline_perm_identity_24">
+            app:startIconDrawable="@drawable/baseline_perm_identity_24"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -151,7 +156,8 @@
             app:layout_constraintEnd_toEndOf="@+id/gender_f"
             app:layout_constraintStart_toStartOf="@+id/gender_f"
             app:layout_constraintTop_toBottomOf="@+id/gender_f"
-            app:startIconDrawable="@drawable/baseline_perm_identity_24">
+            app:startIconDrawable="@drawable/baseline_perm_identity_24"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -167,7 +173,9 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:enabled="false"
             android:hint="Gender"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="@+id/birthday_f"
             app:layout_constraintStart_toStartOf="@+id/birthday_f"
             app:layout_constraintTop_toBottomOf="@+id/birthday_f"
@@ -190,7 +198,8 @@
             app:layout_constraintEnd_toEndOf="@+id/photo_f"
             app:layout_constraintStart_toStartOf="@+id/photo_f"
             app:layout_constraintTop_toBottomOf="@+id/photo_f"
-            app:startIconDrawable="@drawable/baseline_perm_identity_24">
+            app:startIconDrawable="@drawable/baseline_perm_identity_24"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -211,21 +220,23 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
+            android:onClick="next"
             android:text="Next"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:onClick="back"
             android:text="Back"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

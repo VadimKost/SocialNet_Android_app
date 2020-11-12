@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
                         setUserCredentials(this@LoginActivity, username, password)
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     } else {
-                        Toast.makeText(this@LoginActivity, "Something went WRONG", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "WRONG", Toast.LENGTH_SHORT).show()
                         Log.e("", response.errorBody()?.string().toString())
                     }
                 }
@@ -49,23 +49,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun register(view: View) {
-//        val p=User_profile(gender = 1,data = "2020-10-16")
-//        val l=User(user_profile = p,username = "Varil",email = "Vari@kasi.ru",password = "12")
-//        SocialNetService.Api().createUser(l)
-//            .enqueue(object : Callback<User> {
-//                override fun onFailure(call: Call<User>, t: Throwable) {
-//                    TODO("Not yet implemented")
-//                }
-//
-//                override fun onResponse(
-//                    call: Call<User>,
-//                    response: Response<User>
-//                ) {
-//                    Toast.makeText(this@LoginActivity, "${response.code()}", Toast.LENGTH_SHORT).show()
-//                    Log.e("Error code 400", response.errorBody()?.string().toString());
-//                }
-//
-//            })
         startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
 
     }

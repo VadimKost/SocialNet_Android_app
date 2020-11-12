@@ -3,6 +3,7 @@ package com.V.VSocial
 import android.content.Context
 import com.google.gson.annotations.SerializedName
 import okhttp3.Credentials
+import java.util.regex.Pattern
 
 data class User (
     @SerializedName("id") val id : Int?=null,
@@ -19,7 +20,7 @@ data class User_profile (
     @SerializedName("adress") val adress : String?=null,
     @SerializedName("AboutMe") val aboutMe : String?=null,
     @SerializedName("data") val data : String?=null,
-    @SerializedName("gender") val gender : Int?=null,
+    @SerializedName("gender") val gender : Int?=3,
     @SerializedName("photo") val photo : String?=null
 )
 
@@ -41,3 +42,13 @@ fun setUserCredentials(context: Context?,username: String,password: String){
 fun removeUserCredentials(context: Context?){
     context?.getSharedPreferences("Settings", Context.MODE_PRIVATE)?.edit()?.remove("UAC")?.apply()
 }
+
+val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
+    "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+            "\\@" +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+            "(" +
+            "\\." +
+            "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+            ")+"
+)
