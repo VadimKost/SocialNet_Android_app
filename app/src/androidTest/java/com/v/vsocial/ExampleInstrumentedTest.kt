@@ -1,4 +1,4 @@
-package com.V.VSocial
+package com.v.vsocial
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

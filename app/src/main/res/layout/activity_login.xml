@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="252dp"
-        android:layout_height="290dp"
+        android:layout_width="224dp"
+        android:layout_height="242dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/fvlog"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
         android:onClick="next"
 
         android:src="@drawable/baseline_navigate_next_24"
-        app:backgroundTint="@color/ic_launcher_background"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -73,10 +73,10 @@
         android:id="@+id/fogot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:backgroundTint="#FBFBFB"
         android:text="Fogot password?"
         android:textColor="#474444"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_f" />
@@ -85,10 +85,11 @@
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/ic_launcher_background"
         android:onClick="register"
         android:text="Register"
-        app:layout_constraintEnd_toEndOf="@+id/fogot_password"
-        app:layout_constraintStart_toStartOf="@+id/fogot_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fogot_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,12 @@
-package com.V.VSocial
+package com.v.vsocial.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.v.vsocial.Contact_and_links
+import com.v.vsocial.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class LinksAdapter(var links:List<Contact_and_links>): RecyclerView.Adapter<LinksAdapter.LinkHolder>() {

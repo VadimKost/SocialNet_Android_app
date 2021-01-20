@@ -1,4 +1,4 @@
-package com.V.VSocial
+package com.v.vsocial
 
 import org.junit.Test
 

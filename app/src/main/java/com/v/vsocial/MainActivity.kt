@@ -1,12 +1,12 @@
-package com.V.VSocial
+package com.v.vsocial
 
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.v.vsocial.network.Auth
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(){
         supportActionBar?.title =null
 
         navigationView.selectedItemId=R.id.user
-        supportFragmentManager.beginTransaction().replace(R.id.container, MainUserFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.container, UserFragment()).commit()
 
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(){
                 }
 
                 R.id.user-> {
-                        loadFragment(MainUserFragment())
+                        loadFragment(UserFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(){
         }
 
 
+
     }
 
     fun loadFragment(fragment: Fragment) {
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     fun vvv(view: View) {
-        removeUserCredentials(this)
+        Auth.removeUserCredentials(this)
     }
 
 
