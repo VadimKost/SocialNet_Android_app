@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.v.vsocial.Contact_and_links
 import com.v.vsocial.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.v.vsocial.models.ContactsLinks
 
-class LinksAdapter(var links:List<Contact_and_links>): RecyclerView.Adapter<LinksAdapter.LinkHolder>() {
+class LinksAdapter(var links:List<ContactsLinks>?): RecyclerView.Adapter<LinksAdapter.LinkHolder>() {
     inner class LinkHolder(cardView: CardView): RecyclerView.ViewHolder(cardView) {
         var text_v =cardView.findViewById(R.id.name) as TextView
         var button_v =cardView.findViewById(R.id.button) as FloatingActionButton
         fun bind(position: Int){
-            text_v.text=links[position].title
+            text_v.text= links?.get(position)?.title
             button_v.setImageResource(R.drawable.baseline_link_24)
         }
 
@@ -27,7 +27,12 @@ class LinksAdapter(var links:List<Contact_and_links>): RecyclerView.Adapter<Link
     }
 
     override fun getItemCount(): Int {
-        return links.size
+        if(links == null){
+            return 0
+        }else{
+            return links!!.size
+        }
+
     }
 
     override fun onBindViewHolder(holder: LinkHolder, position: Int) {
