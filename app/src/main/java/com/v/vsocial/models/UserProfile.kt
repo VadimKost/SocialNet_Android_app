@@ -7,6 +7,6 @@ data class UserProfile (
     @SerializedName("adress") val adress : String?=null,
     @SerializedName("AboutMe") val aboutMe : String?=null,
     @SerializedName("data") val data : String?=null,
-    @SerializedName("gender") val gender : Int?=3,
+    @SerializedName("gender") val gender : Int?=null,
     @SerializedName("photo") val photo : String?=null
 )

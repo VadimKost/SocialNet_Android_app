@@ -6,11 +6,16 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.v.vsocial.network.Auth
+import com.v.vsocial.viewmodels.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(){
+    val model: MainActivityViewModel by lazy { ViewModelProvider(this).get(
+        MainActivityViewModel::class.java) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,6 +44,9 @@ class MainActivity : AppCompatActivity(){
             false
 
         }
+
+
+
 
 
 
