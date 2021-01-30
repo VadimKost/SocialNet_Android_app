@@ -16,7 +16,7 @@
             android:noHistory="true" />
         <activity
             android:name="com.v.vsocial.MainActivity"
-            android:screenOrientation="portrait" />
+             />
         <activity
             android:name="com.v.vsocial.LoginActivity"
             android:noHistory="true"

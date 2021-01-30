@@ -1,7 +1,10 @@
 package com.v.vsocial.utils
 
-sealed class State{
-    object loading : State()
-    data class success(var data:Any, val label:String): State()
-    object networkError: State()
+sealed class ResponseState<T>(
+    val data: T? = null,
+) {
+    class Success<T>(data: T) : ResponseState<T>(data)
+    class NetError<T>(data: T? = null) : ResponseState<T>(data)
+    class UnknownProblem<T>() : ResponseState<T>()
+    class AuthError<T>() : ResponseState<T>()
 }
