@@ -18,7 +18,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Auth.getUserCredentials(this)!=null) {
-           startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
         setContentView(R.layout.activity_login)
 

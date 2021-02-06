@@ -9,8 +9,9 @@ import retrofit2.http.*
 
 
 object SocialNet {
+    private val  BASE_URL="http://192.168.42.93:8000/api/"
 //    private val BASE_URL = "http://www.vako.ga/api/"
-    private val  BASE_URL="http://192.168.0.106:8000/api/"
+//    private val  BASE_URL="http://192.168.0.106:8000/api/"
     lateinit var retrofit: Retrofit
     init {
         retrofit = Retrofit.Builder()

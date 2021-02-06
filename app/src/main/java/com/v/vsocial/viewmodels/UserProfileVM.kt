@@ -16,7 +16,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class MainActivityViewModel(application: Application): AndroidViewModel(application) {
+class UserProfileVM(application: Application): AndroidViewModel(application) {
     val coroutineExceptionHanlder = CoroutineExceptionHandler{_, throwable ->
 //        _stateFlow.value=State.networkError
     }
@@ -31,8 +31,7 @@ class MainActivityViewModel(application: Application): AndroidViewModel(applicat
     init{
         _actions.value=Action.showLoadingBar
         viewModelScope.launch {
-            var userstate = getUser()
-            when(userstate){
+            when(val userstate = getUser()){
                 is ResponseState.Success -> _user.value = userstate.data
                 is ResponseState.AuthError -> _actions.value =Action.logout
             }

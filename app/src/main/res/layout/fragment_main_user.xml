@@ -4,8 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="user"
-            type="com.v.vsocial.models.User" />
+            name="viewmodel"
+            type="com.v.vsocial.viewmodels.UserProfileVM" />
     </data>
 
 
@@ -52,7 +52,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:background="#FFFFFF"
-                        android:src="@{user.user_profile.photo}"
+                        android:src="@{viewmodel.user.user_profile.photo}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.061"
                         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:maxLines="2"
-                        android:text="@{user.username}"
+                        android:text="@{viewmodel.user.username}"
                         android:textAlignment="center"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="14sp"
@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="@{user.user_profile.data}"
+                        android:text="@{viewmodel.user.user_profile.data}"
                         app:layout_constraintBottom_toBottomOf="@+id/textView25"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -189,7 +189,7 @@
                         android:layout_height="0dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
-                        android:text="@{user.user_profile.adress}"
+                        android:text="@{viewmodel.user.user_profile.adress}"
                         app:layout_constraintBottom_toBottomOf="@+id/gender_f"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -211,7 +211,7 @@
                             android:id="@+id/about_f"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@{user.user_profile.aboutMe}" />
+                            android:text="@{viewmodel.user.user_profile.aboutMe}" />
                     </ScrollView>
 
                     <TextView
@@ -266,9 +266,21 @@
                         android:id="@+id/gender_f"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{user.user_profile.gender.toString()}"
+                        android:text="@{viewmodel.user.user_profile.gender.toString()}"
                         app:layout_constraintBottom_toBottomOf="@+id/textView"
                         app:layout_constraintStart_toStartOf="@+id/birthday_f" />
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="@{viewmodel.user.user_profile.adress}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

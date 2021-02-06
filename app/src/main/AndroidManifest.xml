@@ -12,14 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.v.vsocial.RegisterActivity"
-            android:noHistory="true" />
+            android:name="com.v.vsocial.RegisterActivity" />
         <activity
             android:name="com.v.vsocial.MainActivity"
              />
         <activity
             android:name="com.v.vsocial.LoginActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

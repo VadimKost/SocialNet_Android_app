@@ -4,11 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
+    buildToolsVersion "30.0.3"
+
+
     defaultConfig {
         applicationId "com.v.vsocial"
         minSdkVersion 23
@@ -19,7 +17,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
-
         enabled = true
 
     }
