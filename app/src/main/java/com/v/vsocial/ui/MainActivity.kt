@@ -1,4 +1,4 @@
-package com.v.vsocial
+package com.v.vsocial.ui
 
 
 import android.os.Bundle
@@ -7,23 +7,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.v.vsocial.network.Auth
+import com.v.vsocial.R
+import com.v.vsocial.api.Auth
 import com.v.vsocial.viewmodels.UserProfileVM
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(){
-    val model: UserProfileVM by lazy { ViewModelProvider(this).get(
-        UserProfileVM::class.java) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar?.title =null
 
-        navigationView.selectedItemId=R.id.user
-        supportFragmentManager.beginTransaction().replace(R.id.container, UserFragment()).commit()
+        navigationView.selectedItemId= R.id.user
+        supportFragmentManager.beginTransaction().replace(R.id.container, UserProfileFragment()).commit()
 
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -31,12 +30,12 @@ class MainActivity : AppCompatActivity(){
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.user-> {
-                        loadFragment(UserFragment())
+                R.id.user -> {
+                        loadFragment(UserProfileFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.e-> {
+                R.id.e -> {
                     return@setOnNavigationItemSelectedListener true
                 }
 

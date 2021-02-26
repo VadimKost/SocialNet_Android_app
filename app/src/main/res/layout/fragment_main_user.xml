@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -269,18 +269,6 @@
                         android:text="@{viewmodel.user.user_profile.gender.toString()}"
                         app:layout_constraintBottom_toBottomOf="@+id/textView"
                         app:layout_constraintStart_toStartOf="@+id/birthday_f" />
-
-                    <EditText
-                        android:id="@+id/editText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="@{viewmodel.user.user_profile.adress}"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.v.vsocial
+package com.v.vsocial.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,14 +10,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.v.vsocial.databinding.FragmentMainUserBinding
-import com.v.vsocial.network.Auth
-import com.v.vsocial.viewmodels.Action
+import com.v.vsocial.api.Auth
+import com.v.vsocial.utils.ActionVM
 import com.v.vsocial.viewmodels.UserProfileVM
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
-class UserFragment : Fragment() {
+@AndroidEntryPoint
+class UserProfileFragment : Fragment() {
     val vm: UserProfileVM by lazy{
         ViewModelProvider(this).get(UserProfileVM::class.java)
     }
@@ -34,12 +35,12 @@ class UserFragment : Fragment() {
         lifecycleScope.launch {
             vm.actions.collect {
                 when(it){
-                    Action.logout -> {
+                    ActionVM.logout -> {
                         Auth.removeUserCredentials(requireContext())
                         startActivity(Intent(requireContext(), LoginActivity::class.java))
                     }
-                    Action.showLoadingBar -> binding.progressbar.visibility= View.VISIBLE
-                    Action.hideLoadingBar -> binding.progressbar.visibility= View.INVISIBLE
+                    ActionVM.showLoadingBar -> binding.progressbar.visibility= View.VISIBLE
+                    ActionVM.hideLoadingBar -> binding.progressbar.visibility= View.INVISIBLE
                 }
             }
         }

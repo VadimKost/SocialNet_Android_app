@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".di.VSocialApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,12 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.v.vsocial.RegisterActivity" />
+            android:name="com.v.vsocial.ui.RegisterActivity" />
         <activity
-            android:name="com.v.vsocial.MainActivity"
+            android:name="com.v.vsocial.ui.MainActivity"
              />
         <activity
-            android:name="com.v.vsocial.LoginActivity"
+            android:name="com.v.vsocial.ui.LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

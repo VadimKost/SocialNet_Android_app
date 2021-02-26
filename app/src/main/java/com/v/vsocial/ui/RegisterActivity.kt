@@ -1,12 +1,15 @@
-package com.v.vsocial
+package com.v.vsocial.ui
 
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import com.v.vsocial.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_register_step2.*
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     var step=0
 
@@ -24,7 +27,7 @@ class RegisterActivity : AppCompatActivity() {
         }
         //
 
-        val adapter = ArrayAdapter.createFromResource(this,R.array.gender, android.R.layout.simple_list_item_1)
+        val adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_list_item_1)
         (gender_f.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 //    fun next(view: View) {
