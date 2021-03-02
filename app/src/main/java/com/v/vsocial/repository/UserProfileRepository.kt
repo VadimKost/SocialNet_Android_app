@@ -11,17 +11,22 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class UserProfileRepository(var userProfileApi: UserProfileApi, var context:Context) {
+class UserProfileRepository (var userProfileApi: UserProfileApi, var context:Context) {
 
     suspend fun getCurrentUser():ResponseState<User>{
-        val user = userProfileApi.getCurrentUser(Auth.getUserCredentials(context))
-        if (user.code()==401){
-            return ResponseState.AuthError()
+        try {
+            val user = userProfileApi.getCurrentUser(Auth.getUserCredentials(context))
+            if (user.code()==401){
+                return ResponseState.AuthError()
+            }
+            if(user.code()==200){
+                return ResponseState.Success(user.body()!!)
+            }
+            return ResponseState.UnknownProblem()
+        }catch (t:Throwable){
+            return ResponseState.NetError()
         }
-        if(user.code()==200){
-            return ResponseState.Success(user.body()!!)
-        }
-        return ResponseState.UnknownProblem()
+
 
     }
 }

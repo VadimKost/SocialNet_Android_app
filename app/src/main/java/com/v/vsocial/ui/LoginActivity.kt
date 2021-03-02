@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.view.View
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 
 import com.v.vsocial.R
 import com.v.vsocial.api.Auth
+import com.v.vsocial.viewmodels.LoginVM
+import com.v.vsocial.viewmodels.UserProfileVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+
+    val vm: LoginVM by lazy{
+        ViewModelProvider(this).get(LoginVM::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

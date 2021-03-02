@@ -22,13 +22,6 @@ class UserProfileVM @Inject constructor(
     userProfileRepository: UserProfileRepository
 ): ViewModel() {
 
-    val coroutineExceptionHanlder = CoroutineExceptionHandler{_, throwable ->
-//        _stateFlow.value=State.networkError
-    }
-
-
-
-
     private val _actions: MutableStateFlow<ActionVM> = MutableStateFlow(ActionVM.waitingAction)
     val actions: StateFlow<ActionVM> = _actions
 
@@ -41,38 +34,11 @@ class UserProfileVM @Inject constructor(
             when(val userstate = userProfileRepository.getCurrentUser()){
                 is ResponseState.Success -> _user.value = userstate.data
                 is ResponseState.AuthError -> _actions.value =ActionVM.logout
+                is ResponseState.NetError -> _actions.value =ActionVM.showMessage("Offline")
             }
             _actions.value=ActionVM.hideLoadingBar
         }
-
-
     }
-
-//    suspend fun getUser():ResponseState<User>{
-//                val user = SocialNet.Api().getCurrentUser(Auth.getUserCredentials(context))
-//                if (user.code()==401){
-//                    return ResponseState.AuthError()
-//                }
-//                if(user.code()==200){
-//                    return ResponseState.Success(user.body()!!)
-//                }
-//                return ResponseState.UnknownProblem()
-//
-//    }
-//    fun getContacts(){
-//        viewModelScope.launch(Dispatchers.IO+coroutineExceptionHanlder){
-//            val contacts= SocialNet.Api().getContactAndLinks(Auth.getUserCredentials(context))
-//            if (contacts.code()==401){
-//               _actionFlow.value=Action.logout
-//            }
-//            if(contacts.code()==200){
-//                withContext(Dispatchers.Main){
-//                    _stateFlow.value = State.success.contactsSuccess(contacts.body()!!)
-//                }
-//            }
-//
-//        }
-//    }
 
 
 }

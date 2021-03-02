@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -39,8 +40,9 @@ class UserProfileFragment : Fragment() {
                         Auth.removeUserCredentials(requireContext())
                         startActivity(Intent(requireContext(), LoginActivity::class.java))
                     }
-                    ActionVM.showLoadingBar -> binding.progressbar.visibility= View.VISIBLE
-                    ActionVM.hideLoadingBar -> binding.progressbar.visibility= View.INVISIBLE
+                    is ActionVM.showLoadingBar -> binding.progressbar.visibility= View.VISIBLE
+                    is ActionVM.hideLoadingBar -> binding.progressbar.visibility= View.INVISIBLE
+                    is ActionVM.showMessage-> Toast.makeText(requireContext(), "${it.msg}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
