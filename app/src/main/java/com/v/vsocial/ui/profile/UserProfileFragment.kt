@@ -1,4 +1,4 @@
-package com.v.vsocial.ui
+package com.v.vsocial.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.v.vsocial.databinding.FragmentMainUserBinding
 import com.v.vsocial.api.Auth
+import com.v.vsocial.ui.login.LoginActivity
 import com.v.vsocial.utils.ActionVM
-import com.v.vsocial.viewmodels.UserProfileVM
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -40,8 +40,8 @@ class UserProfileFragment : Fragment() {
                         Auth.removeUserCredentials(requireContext())
                         startActivity(Intent(requireContext(), LoginActivity::class.java))
                     }
-                    is ActionVM.showLoadingBar -> binding.progressbar.visibility= View.VISIBLE
-                    is ActionVM.hideLoadingBar -> binding.progressbar.visibility= View.INVISIBLE
+//                    is ActionVM.showLoadingBar -> binding.progressbar.visibility= View.VISIBLE
+//                    is ActionVM.hideLoadingBar -> binding.progressbar.visibility= View.INVISIBLE
                     is ActionVM.showMessage-> Toast.makeText(requireContext(), "${it.msg}", Toast.LENGTH_SHORT).show()
                 }
             }

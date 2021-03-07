@@ -1,4 +1,4 @@
-package com.v.vsocial.viewmodels
+package com.v.vsocial.ui.profile
 
 import android.app.Application
 import android.content.Context

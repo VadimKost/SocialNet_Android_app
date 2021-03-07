@@ -7,23 +7,24 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.v.vsocial.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.v.vsocial.databinding.LinkElementBinding
 import com.v.vsocial.models.ContactsLinks
 
 class LinksAdapter(var links:List<ContactsLinks>?): RecyclerView.Adapter<LinksAdapter.LinkHolder>() {
-    inner class LinkHolder(cardView: CardView): RecyclerView.ViewHolder(cardView) {
-        var text_v =cardView.findViewById(R.id.name) as TextView
-        var button_v =cardView.findViewById(R.id.button) as FloatingActionButton
+
+    inner class LinkHolder(val binding: LinkElementBinding): RecyclerView.ViewHolder(binding.root) {
+
         fun bind(position: Int){
-            text_v.text= links?.get(position)?.title
-            button_v.setImageResource(R.drawable.baseline_link_24)
+            binding.name.text= links?.get(position)?.title
+            binding.button.setImageResource(R.drawable.baseline_link_24)
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinkHolder {
-        val cv = LayoutInflater.from(parent.context)
-            .inflate(R.layout.link_element, parent, false) as CardView
-        return LinkHolder(cv)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = LinkElementBinding.inflate(inflater)
+        return LinkHolder(binding)
     }
 
     override fun getItemCount(): Int {

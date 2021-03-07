@@ -10,8 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserProfileRepository (var userProfileApi: UserProfileApi, var context:Context) {
+@Singleton
+class UserProfileRepository @Inject constructor (
+    var userProfileApi: UserProfileApi,
+    @ApplicationContext var context:Context
+    ) {
 
     suspend fun getCurrentUser():ResponseState<User>{
         try {

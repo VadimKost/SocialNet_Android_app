@@ -5,28 +5,33 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.v.vsocial.R
 import com.v.vsocial.api.Auth
-import com.v.vsocial.viewmodels.UserProfileVM
+import com.v.vsocial.databinding.ActivityMainBinding
+import com.v.vsocial.ui.profile.UserProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(){
+    lateinit var activityBinding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar as Toolbar?)
-        supportActionBar?.title =null
+        activityBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        var toolbar =activityBinding.toolbar as Toolbar?
+        setSupportActionBar(toolbar)
+        supportActionBar?.title=null
 
-        navigationView.selectedItemId= R.id.user
+
+        activityBinding.navigationView.selectedItemId= R.id.user
         supportFragmentManager.beginTransaction().replace(R.id.container, UserProfileFragment()).commit()
 
-        navigationView.setOnNavigationItemSelectedListener {
+        activityBinding.navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.q -> {
+                    activityBinding.title.text="1"
                     return@setOnNavigationItemSelectedListener true
                 }
 
@@ -36,6 +41,7 @@ class MainActivity : AppCompatActivity(){
                 }
 
                 R.id.e -> {
+                    activityBinding.title.text="3"
                     return@setOnNavigationItemSelectedListener true
                 }
 
@@ -50,6 +56,7 @@ class MainActivity : AppCompatActivity(){
 
 
     }
+
 
     fun loadFragment(fragment: Fragment) {
         // load fragment
