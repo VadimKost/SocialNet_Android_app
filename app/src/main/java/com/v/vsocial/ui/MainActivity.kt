@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.v.vsocial.R
 import com.v.vsocial.api.Auth
 import com.v.vsocial.databinding.ActivityMainBinding
@@ -20,55 +24,20 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-        var toolbar =activityBinding.toolbar as Toolbar?
+        val toolbar =activityBinding.toolbar as Toolbar?
         setSupportActionBar(toolbar)
         supportActionBar?.title=null
 
+        val navigationView = activityBinding.navigationView
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
 
-        activityBinding.navigationView.selectedItemId= R.id.user
-        supportFragmentManager.beginTransaction().replace(R.id.container, UserProfileFragment()).commit()
-
-        activityBinding.navigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.q -> {
-                    activityBinding.title.text="1"
-                    return@setOnNavigationItemSelectedListener true
-                }
-
-                R.id.user -> {
-                        loadFragment(UserProfileFragment())
-                    return@setOnNavigationItemSelectedListener true
-                }
-
-                R.id.e -> {
-                    activityBinding.title.text="3"
-                    return@setOnNavigationItemSelectedListener true
-                }
-
-            }
-            false
-
-        }
-
-
-
-
-
+        navigationView.setupWithNavController(navController)
 
     }
 
 
-    fun loadFragment(fragment: Fragment) {
-        // load fragment
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
-
-    fun vvv(view: View) {
-        Auth.removeUserCredentials(this)
-    }
 
 
 }

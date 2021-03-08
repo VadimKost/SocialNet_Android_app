@@ -1,6 +1,8 @@
 package com.v.vsocial.ui.login
 
+import android.app.Application
 import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.v.vsocial.api.Auth
@@ -13,10 +15,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @HiltViewModel
 class LoginVM @Inject constructor(
-    @ApplicationContext val context: Context,
     val userProfileRepository: UserProfileRepository,
 ): ViewModel() {
     private val _actions: MutableStateFlow<ActionVM> = MutableStateFlow(ActionVM.waitingAction)
@@ -24,13 +26,9 @@ class LoginVM @Inject constructor(
 
    suspend fun userExist(username:String, password:String):Boolean{
        var exist =false
-       Auth.setUserCredentials(context, username, password)
-       when(userProfileRepository.getCurrentUser()){
+       when(userProfileRepository.getCurrentUser(username, password)){
             is ResponseState.Success -> exist=true
-            is ResponseState.AuthError -> {
-                exist=false
-                Auth.removeUserCredentials(context)
-            }
+            is ResponseState.AuthError ->  exist=false
             is ResponseState.NetError -> _actions.value =ActionVM.showMessage("NO INTERNET CONNECTION")
         }
        return exist

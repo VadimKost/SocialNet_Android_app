@@ -13,13 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.v.vsocial.ui.registration.RegisterActivity" />
-        <activity
-            android:name="com.v.vsocial.ui.MainActivity"
-             />
-        <activity
-            android:name="com.v.vsocial.ui.login.LoginActivity"
-            android:screenOrientation="portrait">
+            android:name="com.v.vsocial.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

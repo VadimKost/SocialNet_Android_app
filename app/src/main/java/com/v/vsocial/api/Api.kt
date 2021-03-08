@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 
 
-interface UserProfileApi {
+interface Api {
     @GET("profile/user/currentUser/")
     suspend fun getCurrentUser(@Header("Authorization") credentials: String?): Response<User>
 

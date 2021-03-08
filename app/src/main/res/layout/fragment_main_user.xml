@@ -230,12 +230,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/image" />
 
                     <Button
-                        android:id="@+id/button4"
+                        android:id="@+id/logout"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:backgroundTint="#EFEDED"
-                        android:onClick="vvv"
-                        android:text="FUTERE THINGS"
+                        android:text="logout"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

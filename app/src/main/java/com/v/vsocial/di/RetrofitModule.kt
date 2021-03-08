@@ -1,6 +1,6 @@
 package com.v.vsocial.di
 
-import com.v.vsocial.UserProfileApi
+import com.v.vsocial.Api
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,7 +40,7 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideUserApi(retrofit: Retrofit): UserProfileApi =retrofit.create(UserProfileApi::class.java)
+    fun provideUserApi(retrofit: Retrofit): Api =retrofit.create(Api::class.java)
 }
 //    private val BASE_URL = "http://www.vako.ga/api/"
 //    private val  BASE_URL="http://192.168.0.106:8000/api/"

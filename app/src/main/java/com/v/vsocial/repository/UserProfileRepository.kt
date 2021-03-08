@@ -1,27 +1,28 @@
 package com.v.vsocial.repository
 
 import android.content.Context
-import com.v.vsocial.UserProfileApi
+import com.v.vsocial.Api
 import com.v.vsocial.api.Auth
 import com.v.vsocial.models.User
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserProfileRepository @Inject constructor (
-    var userProfileApi: UserProfileApi,
+    var api: Api,
     @ApplicationContext var context:Context
     ) {
 
-    suspend fun getCurrentUser():ResponseState<User>{
+    suspend fun getCurrentUser(username:String?=null, password:String?=null):ResponseState<User>{
+        if (username != null && password != null){
+            Auth.setUserCredentials(context, username, password)
+        }
         try {
-            val user = userProfileApi.getCurrentUser(Auth.getUserCredentials(context))
+            val user = api.getCurrentUser(Auth.getUserCredentials(context))
             if (user.code()==401){
+                Auth.removeUserCredentials(context)
                 return ResponseState.AuthError()
             }
             if(user.code()==200){
