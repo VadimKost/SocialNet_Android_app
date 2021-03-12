@@ -1,6 +1,7 @@
 package com.v.vsocial.ui.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,13 @@ import androidx.navigation.fragment.findNavController
 import com.v.vsocial.R
 import com.v.vsocial.api.Auth
 import com.v.vsocial.databinding.FragmentLoginBinding
-import com.v.vsocial.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import android.view.animation.AlphaAnimation
+import androidx.core.widget.addTextChangedListener
+import com.v.vsocial.ui.MainActivity
+
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -23,12 +28,13 @@ class LoginFragment : Fragment() {
     val vm: LoginVM by lazy {
         ViewModelProvider(this).get(LoginVM::class.java)
     }
+    var itWasValid=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Auth.getUserCredentials(requireContext()) != null) {
             findNavController().popBackStack()
-            findNavController().navigate(R.id.userProfileFragment)
+            findNavController().navigate(R.id.action_global_userProfileFragment)
         }
 
     }
@@ -37,12 +43,17 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val activity=activity as MainActivity
-        activity.activityBinding.appbar.visibility=View.GONE
-        activity.activityBinding.navigationView.visibility=View.GONE
         binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.vm=vm
         binding.setLifecycleOwner(this)
+
+        var activity=activity as MainActivity
+        activity.activityBinding.navigationView.visibility=View.GONE
+        activity.activityBinding.appbar.visibility=View.GONE
+
         onClickButtonLogin()
+        initFieldListeners()
+        dataIsValid()
         return binding.root
     }
 
@@ -52,7 +63,8 @@ class LoginFragment : Fragment() {
             val password = binding.passwordF.editText?.text.toString()
             lifecycleScope.launch {
                 if (vm.userExist(username, password)) {
-                    findNavController().navigate(R.id.userProfileFragment)
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.action_global_userProfileFragment)
                 } else {
                     Toast.makeText(
                         requireContext(),
@@ -63,6 +75,37 @@ class LoginFragment : Fragment() {
             }
         }
     }
+    fun initFieldListeners(){
+        binding.usernameF.editText?.addTextChangedListener {
+            vm.username.value=it.toString()
+        }
+        binding.passwordF.editText?.addTextChangedListener {
+            vm.password.value=it.toString()
+        }
+    }
+
+    fun dataIsValid(){
+        val animation1 = AlphaAnimation(0f, 1.0f).apply {
+            duration = 2000
+        }
+
+        lifecycleScope.launch{
+            vm.isValid.collect {
+                Log.e("a",itWasValid.toString())
+                if (it){
+                    if(!itWasValid){
+                        binding.login.visibility=View.VISIBLE
+                        binding.login.startAnimation(animation1)
+                        itWasValid=true
+                    }
+                }else{
+                    itWasValid=false
+                    binding.login.visibility=View.INVISIBLE
+                }
+                }
+            }
+        }
+    }
 
 
-}
+

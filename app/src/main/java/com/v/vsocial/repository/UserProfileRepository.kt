@@ -15,8 +15,8 @@ class UserProfileRepository @Inject constructor (
     @ApplicationContext var context:Context
     ) {
 
-    suspend fun getCurrentUser(username:String?=null, password:String?=null):ResponseState<User>{
-        if (username != null && password != null){
+    suspend fun getCurrentUser(username:String="", password:String=""):ResponseState<User>{
+        if (username != "" && password != ""){
             Auth.setUserCredentials(context, username, password)
         }
         try {

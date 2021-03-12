@@ -2,6 +2,7 @@ package com.v.vsocial.ui.login
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,8 +12,7 @@ import com.v.vsocial.utils.ActionVM
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -21,6 +21,16 @@ import javax.inject.Singleton
 class LoginVM @Inject constructor(
     val userProfileRepository: UserProfileRepository,
 ): ViewModel() {
+    var username=MutableStateFlow("")
+    var password=MutableStateFlow("")
+    val isValid: Flow<Boolean> = combine(username, password) { username, password->
+        return@combine validate(username, password)
+    }
+    init {
+        viewModelScope.launch {
+        }
+    }
+
     private val _actions: MutableStateFlow<ActionVM> = MutableStateFlow(ActionVM.waitingAction)
     val actions: StateFlow<ActionVM> = _actions
 
@@ -33,5 +43,13 @@ class LoginVM @Inject constructor(
         }
        return exist
         }
+
+    fun validate(username: String,password: String):Boolean{
+        if (username !="" && password !=""){
+            return true
+        }else{
+            return false
+        }
+    }
 
     }

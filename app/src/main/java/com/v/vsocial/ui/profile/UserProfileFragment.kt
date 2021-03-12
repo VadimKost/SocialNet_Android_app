@@ -27,14 +27,15 @@ class UserProfileFragment : Fragment() {
     lateinit var binding:FragmentMainUserBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        var activity=activity as MainActivity
-        activity.activityBinding.appbar.visibility=View.VISIBLE
-        activity.activityBinding.navigationView.visibility=View.VISIBLE
         binding =FragmentMainUserBinding.inflate(inflater,container,false)
         binding.setLifecycleOwner(this)
         binding.viewmodel =vm
 
         binding.rv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        var activity=activity as MainActivity
+        activity.activityBinding.navigationView.visibility=View.VISIBLE
+        activity.activityBinding.appbar.visibility=View.VISIBLE
 
         binding.logout.setOnClickListener{
             Auth.removeUserCredentials(requireContext())

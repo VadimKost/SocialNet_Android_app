@@ -3,39 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.v.vsocial.ui.login.LoginVM" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.login.LoginActivity">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="224dp"
-            android:layout_height="242dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_marginTop="32dp"
             android:src="@drawable/fvlog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-
-            android:src="@drawable/baseline_navigate_next_24"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username_f"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="250dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:hint="Username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,15 +47,16 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/password_f"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="250dp"
-            android:layout_height="61dp"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:hint="Password"
             app:endIconMode="password_toggle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/username_f"
             app:layout_constraintStart_toStartOf="@+id/username_f"
             app:layout_constraintTop_toBottomOf="@+id/username_f"
-            app:layout_constraintVertical_bias="0.07999998"
+            app:layout_constraintVertical_bias="0.0"
             app:startIconDrawable="@drawable/baseline_vpn_key_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -70,28 +66,40 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/fogot_password"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#FBFBFB"
-            android:text="Fogot password?"
-            android:textColor="#474444"
-            android:textSize="14sp"
+
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/baseline_navigate_next_24"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/password_f"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/forgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Forgot password?"
+            app:layout_constraintEnd_toEndOf="@+id/password_f"
             app:layout_constraintTop_toBottomOf="@+id/password_f" />
 
         <Button
             android:id="@+id/register"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/ic_launcher_background"
             android:text="Register"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fogot_password"
+            app:layout_constraintEnd_toEndOf="@+id/password_f"
+            app:layout_constraintStart_toStartOf="@+id/password_f"
+            app:layout_constraintTop_toBottomOf="@+id/forgot"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
