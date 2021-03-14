@@ -19,6 +19,7 @@ import kotlinx.coroutines.launch
 import android.view.animation.AlphaAnimation
 import androidx.core.widget.addTextChangedListener
 import com.v.vsocial.ui.MainActivity
+import com.v.vsocial.utils.ActionVM
 
 
 @AndroidEntryPoint
@@ -28,13 +29,19 @@ class LoginFragment : Fragment() {
     val vm: LoginVM by lazy {
         ViewModelProvider(this).get(LoginVM::class.java)
     }
-    var itWasValid=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Auth.getUserCredentials(requireContext()) != null) {
             findNavController().popBackStack()
             findNavController().navigate(R.id.action_global_userProfileFragment)
+        }
+        lifecycleScope.launch {
+            vm.actions.collect {
+                when(it){
+                    is ActionVM.showMessage-> Toast.makeText(requireContext(), "${it.msg}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }
@@ -62,10 +69,11 @@ class LoginFragment : Fragment() {
             val username = binding.usernameF.editText?.text.toString()
             val password = binding.passwordF.editText?.text.toString()
             lifecycleScope.launch {
-                if (vm.userExist(username, password)) {
+                val userExist=vm.userExist(username, password)
+                if ( userExist== true) {
                     findNavController().popBackStack()
                     findNavController().navigate(R.id.action_global_userProfileFragment)
-                } else {
+                } else if (userExist == false) {
                     Toast.makeText(
                         requireContext(),
                         "Wrong Username/Password",
@@ -89,17 +97,13 @@ class LoginFragment : Fragment() {
             duration = 2000
         }
 
+
         lifecycleScope.launch{
-            vm.isValid.collect {
-                Log.e("a",itWasValid.toString())
-                if (it){
-                    if(!itWasValid){
-                        binding.login.visibility=View.VISIBLE
-                        binding.login.startAnimation(animation1)
-                        itWasValid=true
-                    }
-                }else{
-                    itWasValid=false
+            vm.buttonEnabled.collect {
+                if (it == true){
+                    binding.login.visibility=View.VISIBLE
+                    binding.login.startAnimation(animation1)
+                }else if (it ==false){
                     binding.login.visibility=View.INVISIBLE
                 }
                 }

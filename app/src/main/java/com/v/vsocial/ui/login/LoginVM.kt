@@ -23,25 +23,36 @@ class LoginVM @Inject constructor(
 ): ViewModel() {
     var username=MutableStateFlow("")
     var password=MutableStateFlow("")
-    val isValid: Flow<Boolean> = combine(username, password) { username, password->
-        return@combine validate(username, password)
-    }
-    init {
-        viewModelScope.launch {
+    
+    var itWasValid=false
+    
+    val buttonEnabled: Flow<Boolean?> = combine(username, password) { username, password->
+        if (validate(username, password)){
+            if(!itWasValid){
+                itWasValid=true
+                return@combine true
+            }
+        }else{
+            itWasValid=false
+            return@combine false
         }
+        return@combine null
+
     }
 
     private val _actions: MutableStateFlow<ActionVM> = MutableStateFlow(ActionVM.waitingAction)
     val actions: StateFlow<ActionVM> = _actions
 
-   suspend fun userExist(username:String, password:String):Boolean{
-       var exist =false
+   suspend fun userExist(username:String, password:String):Boolean?{
        when(userProfileRepository.getCurrentUser(username, password)){
-            is ResponseState.Success -> exist=true
-            is ResponseState.AuthError ->  exist=false
-            is ResponseState.NetError -> _actions.value =ActionVM.showMessage("NO INTERNET CONNECTION")
+            is ResponseState.Success -> return true
+            is ResponseState.AuthError ->  return false
+            is ResponseState.NetError -> {
+                _actions.value = ActionVM.showMessage("NO INTERNET CONNECTION")
+                return null
+            }
+            else -> return null
         }
-       return exist
         }
 
     fun validate(username: String,password: String):Boolean{
