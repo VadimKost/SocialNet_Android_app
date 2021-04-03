@@ -1,10 +1,9 @@
 package com.v.vsocial.utils
 
-sealed class ResponseState<T>(
-    val data: T? = null,
+sealed class ResponseState<out T>(
 ) {
-    class Success<T>(data: T) : ResponseState<T>(data)
-    class NetError<T>(data: T? = null) : ResponseState<T>(data)
-    class UnknownProblem<T>() : ResponseState<T>()
+    class Success<T>(val data: T) : ResponseState<T>()
+    class NetError<T>(var data: T? = null) : ResponseState<T>()
+    class Error<T>(val message:String?=null) : ResponseState<T>()
     class AuthError<T>() : ResponseState<T>()
 }

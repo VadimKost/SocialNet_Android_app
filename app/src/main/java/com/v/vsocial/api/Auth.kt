@@ -2,22 +2,25 @@ package com.v.vsocial.api
 
 import android.content.Context
 import android.util.Patterns
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Credentials
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-object Auth {
-    fun getUserCredentials(context: Context): String? {
+@Singleton
+class Auth @Inject constructor(@ApplicationContext val context: Context) {
+    fun getUserCredentials(): String? {
         return context.getSharedPreferences("Settings", Context.MODE_PRIVATE)?.getString(
             "UAC",
             null
         )
     }
 
-    fun setUserCredentials(context: Context, username: String, password: String){
+    fun setUserCredentials(username: String, password: String){
         context.getSharedPreferences("Settings", Context.MODE_PRIVATE).edit()
             .putString("UAC", Credentials.basic(username, password)).apply()
     }
-    fun removeUserCredentials(context: Context){
+    fun removeUserCredentials(){
         context.getSharedPreferences("Settings", Context.MODE_PRIVATE).edit().remove("UAC").apply()
     }
 

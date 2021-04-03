@@ -20,6 +20,7 @@ import android.view.animation.AlphaAnimation
 import androidx.core.widget.addTextChangedListener
 import com.v.vsocial.ui.MainActivity
 import com.v.vsocial.utils.ActionVM
+import kotlinx.coroutines.runBlocking
 
 
 @AndroidEntryPoint
@@ -32,9 +33,11 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Auth.getUserCredentials(requireContext()) != null) {
-            findNavController().popBackStack()
-            findNavController().navigate(R.id.action_global_userProfileFragment)
+        runBlocking {
+            if (vm.userExist() == true) {
+                findNavController().popBackStack()
+                findNavController().navigate(R.id.action_global_userProfileFragment)
+            }
         }
         lifecycleScope.launch {
             vm.actions.collect {

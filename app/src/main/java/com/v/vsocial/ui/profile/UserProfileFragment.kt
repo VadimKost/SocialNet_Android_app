@@ -38,7 +38,7 @@ class UserProfileFragment : Fragment() {
         activity.activityBinding.appbar.visibility=View.VISIBLE
 
         binding.logout.setOnClickListener{
-            Auth.removeUserCredentials(requireContext())
+            vm.logout()
             findNavController().popBackStack()
             findNavController().navigate(R.id.logout)
         }

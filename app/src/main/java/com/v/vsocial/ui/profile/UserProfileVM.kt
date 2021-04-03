@@ -5,8 +5,10 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.v.vsocial.api.Auth
 import com.v.vsocial.models.User
 import com.v.vsocial.repository.UserProfileRepository
+import com.v.vsocial.usecases.getuser.GetCurrentUserUseCaseImpl
 import com.v.vsocial.utils.ActionVM
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserProfileVM @Inject constructor(
-    @ApplicationContext context: Context,
-    userProfileRepository: UserProfileRepository
+    var getCurrentUserUseCaseImpl: GetCurrentUserUseCaseImpl,
+    var auth: Auth
 ): ViewModel() {
 
     private val _actions: MutableStateFlow<ActionVM> = MutableStateFlow(ActionVM.waitingAction)
@@ -31,13 +33,20 @@ class UserProfileVM @Inject constructor(
     init{
         viewModelScope.launch {
             _actions.value=ActionVM.showLoadingBar
-            when(val userstate = userProfileRepository.getCurrentUser()){
+            when(val userstate = getCurrentUserUseCaseImpl()){
                 is ResponseState.Success -> _user.value = userstate.data
                 is ResponseState.AuthError -> _actions.value =ActionVM.logout
-                is ResponseState.NetError -> _actions.value =ActionVM.showMessage("Offline")
+                is ResponseState.NetError -> {
+                    _actions.value =ActionVM.showMessage("Offline")
+                    _user.value=userstate.data
+                }
             }
             _actions.value=ActionVM.hideLoadingBar
         }
+    }
+
+    fun logout(){
+        auth.removeUserCredentials()
     }
 
 

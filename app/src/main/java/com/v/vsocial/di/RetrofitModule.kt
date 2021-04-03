@@ -1,6 +1,10 @@
 package com.v.vsocial.di
 
 import com.v.vsocial.Api
+import com.v.vsocial.api.Auth
+import com.v.vsocial.utils.AuthInterceptor
+import com.v.vsocial.utils.ResponseState
+import com.v.vsocial.utils.ResponseStateFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +14,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import okhttp3.Interceptor
+import okhttp3.Request
+import okhttp3.Response
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,8 +33,13 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideOkHttp (interceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    fun provideOkHttp (interceptor: HttpLoggingInterceptor,
+                       authInterceptor: AuthInterceptor)
+    : OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .addInterceptor(authInterceptor)
+            .build()
     }
 
     @Provides
@@ -34,6 +47,7 @@ class RetrofitModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl("http://192.168.0.106:8000/api/")
+            .addCallAdapterFactory(ResponseStateFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

@@ -4,6 +4,7 @@ import android.content.Context
 import com.v.vsocial.Api
 import com.v.vsocial.api.Auth
 import com.v.vsocial.models.User
+import com.v.vsocial.models.UserProfile
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Credentials
@@ -16,27 +17,16 @@ class UserProfileRepository @Inject constructor (
     @ApplicationContext var context:Context
     ) {
 
-    suspend fun getCurrentUser(username:String="", password:String=""):ResponseState<User>{
-        try {
-        val user = if (username != "" && password != ""){
-            api.getCurrentUser(Credentials.basic(username, password))
-        }else{
-            api.getCurrentUser(Auth.getUserCredentials(context))
-        }
-
-        if (user.code()==401){
-            Auth.removeUserCredentials(context)
-            return ResponseState.AuthError()
-        }
-        if(user.code()==200){
-            if (username != "" && password != ""){
-                Auth.setUserCredentials(context, username, password)
+    suspend fun getCurrentUser(): ResponseState<User> {
+        val user = api.getCurrentUser()
+        when (user) {
+            is ResponseState.NetError -> {
+//                fakedata
+                val user_profile=UserProfile(2,"off_geo","off","",1,"https://www.biletik.aero/upload/resize_cache/format_converted/9009fd7ec08c448bd94f273096b40e2b.webp")
+                val _user=User(2,user_profile,"vk","v","k","cv")
+                user.data=_user
             }
-            return ResponseState.Success(user.body()!!)
         }
-            return ResponseState.UnknownProblem()
-        }catch (t:Throwable){
-            return ResponseState.NetError()
-        }
+        return user
     }
 }

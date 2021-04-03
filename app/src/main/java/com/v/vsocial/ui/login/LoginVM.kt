@@ -8,6 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.v.vsocial.api.Auth
 import com.v.vsocial.repository.UserProfileRepository
+import com.v.vsocial.usecases.getuser.GetCurrentUserUseCase
+import com.v.vsocial.usecases.getuser.GetCurrentUserUseCaseImpl
 import com.v.vsocial.utils.ActionVM
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +21,8 @@ import javax.inject.Singleton
 
 @HiltViewModel
 class LoginVM @Inject constructor(
-    val userProfileRepository: UserProfileRepository,
+    val getCurrentUserUseCaseImpl: GetCurrentUserUseCaseImpl,
+    val auth: Auth
 ): ViewModel() {
     var username=MutableStateFlow("")
     var password=MutableStateFlow("")
@@ -43,12 +46,15 @@ class LoginVM @Inject constructor(
     private val _actions: MutableStateFlow<ActionVM> = MutableStateFlow(ActionVM.waitingAction)
     val actions: StateFlow<ActionVM> = _actions
 
-   suspend fun userExist(username:String, password:String):Boolean?{
-       when(userProfileRepository.getCurrentUser(username, password)){
+   suspend fun userExist(username:String?=null, password:String?=null):Boolean?{
+       when(getCurrentUserUseCaseImpl(username, password)){
             is ResponseState.Success -> return true
             is ResponseState.AuthError ->  return false
             is ResponseState.NetError -> {
                 _actions.value = ActionVM.showMessage("NO INTERNET CONNECTION")
+                if(auth.getUserCredentials()!= null){
+                    return true
+                }
                 return null
             }
             else -> return null
