@@ -8,7 +8,11 @@
         android:id="@+id/loginFragment"
         android:name="com.v.vsocial.ui.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"/>
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registrationStep1Fragment"
+            app:destination="@id/registrationStep1Fragment" />
+    </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.v.vsocial.ui.profile.UserProfileFragment"
@@ -16,8 +20,22 @@
         tools:layout="@layout/fragment_main_user"/>
     <action android:id="@+id/logout" app:destination="@id/loginFragment" />
     <action
-        android:id="@+id/action_global_userProfileFragment"
+        android:id="@+id/userProfile"
         app:destination="@id/userProfileFragment"
         app:enterAnim="@anim/fragment_fade_enter"
         app:exitAnim="@anim/fragment_fade_exit" />
+    <fragment
+        android:id="@+id/registrationStep1Fragment"
+        android:name="com.v.vsocial.ui.registration.RegistrationStep1Fragment"
+        android:label="RegistrationStep1Fragment"
+        tools:layout="@layout/fragment_registration_step1">
+        <action
+            android:id="@+id/action_registrationStep1Fragment_to_registrationStep2Fragment"
+            app:destination="@id/registrationStep2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationStep2Fragment"
+        android:name="com.v.vsocial.ui.registration.RegistrationStep2Fragment"
+        android:label="RegistrationStep2Fragment"
+        tools:layout="@layout/fragment_registration_step2"/>
 </navigation>

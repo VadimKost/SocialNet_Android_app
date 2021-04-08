@@ -1,18 +1,13 @@
 package com.v.vsocial.ui.profile
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.v.vsocial.api.Auth
+import com.v.vsocial.api.auth.Auth
 import com.v.vsocial.models.User
-import com.v.vsocial.repository.UserProfileRepository
 import com.v.vsocial.usecases.getuser.GetCurrentUserUseCaseImpl
 import com.v.vsocial.utils.ActionVM
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -2,12 +2,10 @@ package com.v.vsocial.repository
 
 import android.content.Context
 import com.v.vsocial.Api
-import com.v.vsocial.api.Auth
 import com.v.vsocial.models.User
 import com.v.vsocial.models.UserProfile
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.qualifiers.ApplicationContext
-import okhttp3.Credentials
 import javax.inject.Inject
 import javax.inject.Singleton
 

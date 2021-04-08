@@ -1,7 +1,6 @@
 package com.v.vsocial.ui.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.v.vsocial.R
-import com.v.vsocial.api.Auth
 import com.v.vsocial.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -20,7 +18,6 @@ import android.view.animation.AlphaAnimation
 import androidx.core.widget.addTextChangedListener
 import com.v.vsocial.ui.MainActivity
 import com.v.vsocial.utils.ActionVM
-import kotlinx.coroutines.runBlocking
 
 
 @AndroidEntryPoint
@@ -33,11 +30,9 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        runBlocking {
-            if (vm.userExist() == true) {
-                findNavController().popBackStack()
-                findNavController().navigate(R.id.action_global_userProfileFragment)
-            }
+        if (vm.userExists == true) {
+            findNavController().popBackStack()
+            findNavController().navigate(R.id.userProfile)
         }
         lifecycleScope.launch {
             vm.actions.collect {
@@ -62,6 +57,7 @@ class LoginFragment : Fragment() {
         activity.activityBinding.appbar.visibility=View.GONE
 
         onClickButtonLogin()
+        onClickButtonRegistration()
         initFieldListeners()
         dataIsValid()
         return binding.root
@@ -75,7 +71,7 @@ class LoginFragment : Fragment() {
                 val userExist=vm.userExist(username, password)
                 if ( userExist== true) {
                     findNavController().popBackStack()
-                    findNavController().navigate(R.id.action_global_userProfileFragment)
+                    findNavController().navigate(R.id.userProfile)
                 } else if (userExist == false) {
                     Toast.makeText(
                         requireContext(),
@@ -86,6 +82,13 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
+    fun onClickButtonRegistration(){
+        binding.register.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registrationStep1Fragment)
+        }
+    }
+
     fun initFieldListeners(){
         binding.usernameF.editText?.addTextChangedListener {
             vm.username.value=it.toString()
@@ -112,6 +115,9 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+
+
+
     }
 
 

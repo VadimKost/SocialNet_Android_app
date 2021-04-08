@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.v.vsocial.R
-import com.v.vsocial.api.Auth
 import com.v.vsocial.ui.MainActivity
 import com.v.vsocial.utils.ActionVM
 import dagger.hilt.android.AndroidEntryPoint
