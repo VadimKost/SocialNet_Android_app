@@ -31,7 +31,7 @@ class UserProfileVM @Inject constructor(
             when(val userstate = getCurrentUserUseCaseImpl()){
                 is ResponseState.Success -> _user.value = userstate.data
                 is ResponseState.AuthError -> _actions.value =ActionVM.logout
-                is ResponseState.NetError -> {
+                is ResponseState.Offline -> {
                     _actions.value =ActionVM.showMessage("Offline")
                     _user.value=userstate.data
                 }

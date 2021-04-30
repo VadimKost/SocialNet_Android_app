@@ -45,7 +45,7 @@ class ResponseStateCall<T>(proxy: Call<T>) : CallDelegate<T, ResponseState<T>>(p
         }
 
         override fun onFailure(call: Call<T>, t: Throwable) {
-            val result = ResponseState.NetError<T>()
+            val result = ResponseState.Offline<T>()
             callback.onResponse(this@ResponseStateCall, Response.success(result))
         }
     })

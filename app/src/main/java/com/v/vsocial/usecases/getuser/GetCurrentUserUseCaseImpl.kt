@@ -17,7 +17,6 @@ class GetCurrentUserUseCaseImpl @Inject constructor(
         if (username != null && password != null){
             Auth.setUserCredentials(username,password)
         }
-
         val user = userProfileRepository.getCurrentUser()
         return user
     }

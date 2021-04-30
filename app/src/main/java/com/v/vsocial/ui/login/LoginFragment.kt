@@ -18,6 +18,7 @@ import android.view.animation.AlphaAnimation
 import androidx.core.widget.addTextChangedListener
 import com.v.vsocial.ui.MainActivity
 import com.v.vsocial.utils.ActionVM
+import kotlinx.coroutines.runBlocking
 
 
 @AndroidEntryPoint
@@ -30,7 +31,8 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (vm.userExists == true) {
+        runBlocking { vm.userExistenceCheck() }
+        if (vm.userExist.value) {
             findNavController().popBackStack()
             findNavController().navigate(R.id.userProfile)
         }
@@ -38,6 +40,14 @@ class LoginFragment : Fragment() {
             vm.actions.collect {
                 when(it){
                     is ActionVM.showMessage-> Toast.makeText(requireContext(), "${it.msg}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        lifecycleScope.launch {
+            vm.userExist.collect{
+                if (it){
+                    findNavController().popBackStack()
+                    findNavController().navigate(R.id.userProfile)
                 }
             }
         }
@@ -68,17 +78,7 @@ class LoginFragment : Fragment() {
             val username = binding.usernameF.editText?.text.toString()
             val password = binding.passwordF.editText?.text.toString()
             lifecycleScope.launch {
-                val userExist=vm.userExist(username, password)
-                if ( userExist== true) {
-                    findNavController().popBackStack()
-                    findNavController().navigate(R.id.userProfile)
-                } else if (userExist == false) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Wrong Username/Password",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                vm.userExistenceCheck(username, password)
             }
         }
     }
@@ -112,13 +112,13 @@ class LoginFragment : Fragment() {
                 }else if (it ==false){
                     binding.login.visibility=View.INVISIBLE
                 }
-                }
             }
         }
-
-
-
     }
+
+
+
+}
 
 
 

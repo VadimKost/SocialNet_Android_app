@@ -18,7 +18,7 @@ class UserProfileRepository @Inject constructor (
     suspend fun getCurrentUser(): ResponseState<User> {
         val user = api.getCurrentUser()
         when (user) {
-            is ResponseState.NetError -> {
+            is ResponseState.Offline -> {
 //                fakedata
                 val user_profile=UserProfile(2,"off_geo","off","",1,"https://www.biletik.aero/upload/resize_cache/format_converted/9009fd7ec08c448bd94f273096b40e2b.webp")
                 val _user=User(2,user_profile,"vk","v","k","cv")

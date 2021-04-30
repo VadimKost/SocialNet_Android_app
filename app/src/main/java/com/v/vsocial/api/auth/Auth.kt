@@ -15,7 +15,7 @@ class Auth @Inject constructor(
     fun getUserCredentials(): String? {
         return context.getSharedPreferences("Settings", Context.MODE_PRIVATE)?.getString(
             "UAC",
-            null
+            ""
         )
     }
 

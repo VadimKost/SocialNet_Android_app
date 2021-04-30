@@ -7,7 +7,6 @@ import com.v.vsocial.utils.ActionVM
 import com.v.vsocial.utils.ResponseState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,8 +14,8 @@ class LoginVM @Inject constructor(
     val getCurrentUserUseCaseImpl: GetCurrentUserUseCaseImpl,
     val auth: Auth
 ): ViewModel() {
-    var username=MutableStateFlow("")
-    var password=MutableStateFlow("")
+    val username=MutableStateFlow("")
+    val password=MutableStateFlow("")
     
     var itWasValid=false
     val buttonEnabled: Flow<Boolean?> = combine(username, password) { username, password->
@@ -33,20 +32,24 @@ class LoginVM @Inject constructor(
 
     }
 
-    var userExists= runBlocking {userExist()}
+    private val _userExist= MutableStateFlow(false)
+    val userExist:StateFlow<Boolean> = _userExist
 
     private val _actions: MutableStateFlow<ActionVM> = MutableStateFlow(ActionVM.waitingAction)
     val actions: StateFlow<ActionVM> = _actions
 
-   suspend fun userExist(username:String?=null, password:String?=null):Boolean?{
+   suspend fun userExistenceCheck(username:String?=null, password:String?=null){
        when(getCurrentUserUseCaseImpl(username, password)){
-            is ResponseState.Success -> return true
-            is ResponseState.AuthError ->  return false
-            is ResponseState.NetError -> {
-                _actions.value = ActionVM.showMessage("NO INTERNET CONNECTION")
-                return null
+            is ResponseState.Success -> _userExist.value=true
+            is ResponseState.AuthError ->  {
+                _actions.value = ActionVM.showMessage("Wrong Username/Password")
+                _userExist.value=false
             }
-            else -> return null
+            is ResponseState.Offline -> {
+                _actions.value = ActionVM.showMessage("NO INTERNET CONNECTION")
+                _userExist.value=false
+            }
+            else -> _userExist.value=false
         }
         }
 
